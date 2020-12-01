@@ -6,3 +6,6 @@
    path
    (slurp)
    (str/split #"\n")))
+
+(defn read-numbers [path]
+  (map #(Integer/parseInt %) (read-input path)))
