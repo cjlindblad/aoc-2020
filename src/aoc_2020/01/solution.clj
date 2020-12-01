@@ -2,8 +2,15 @@
 
 (defn part-1 [input]
   (first
-   (for [x input y input :when (= (+ x y) 2020)] (* x y))))
+   (for [x input
+         y input
+         :when (= (+ x y) 2020)]
+     (* x y))))
 
 (defn part-2 [input]
   (first
-   (for [x input y input z input :when (= (+ x y z) 2020)] (* x y z))))
+   (for [x input
+         y input
+         z input
+         :when (= (+ x y z) 2020)]
+     (* x y z))))
