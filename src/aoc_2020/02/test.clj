@@ -20,13 +20,19 @@
     (is (= 3 (s2/letter-occurences "a" "aabca"))))
   
   (testing "finds valid password"
-    (is (= true (s2/is-valid-password "1-3 a: abcde"))))
+    (is (= true (s2/is-valid-password-part-1 "1-3 a: abcde"))))
   
   (testing "finds invalid password"
-    (is (= false (s2/is-valid-password "1-3 b: cdefg"))))
+    (is (= false (s2/is-valid-password-part-1 "1-3 b: cdefg"))))
   
   (testing "gets correct answer for part 1 test input"
     (is (= 2 (s2/part-1 test-input))))
   
   (testing "gets correct answer for part 1"
-    (is (= 396 (s2/part-1 input)))))
+    (is (= 396 (s2/part-1 input))))
+  
+  (testing "find letter at index"
+    (is (= true (s2/has-letter-at-index "a" 1 "abc"))))
+  
+  (testing "gets correct answer for part 2"
+    (is (= 428 (s2/part-2 input)))))
