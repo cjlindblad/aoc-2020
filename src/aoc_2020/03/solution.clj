@@ -1,6 +1,8 @@
 (ns aoc-2020.03.solution)
 
-(defn toboggan-indices [input right down]
+(def slope-rules [[1 1] [3 1] [5 1] [7 1] [1 2]])
+
+(defn slope-indices [input right down]
   (let [row-count (count input)
         col-count (count (first input))]
     (map
@@ -8,22 +10,14 @@
      (take-nth down (range row-count))
      (range))))
 
-(def slope-rules [[1 1] [3 1] [5 1] [7 1] [1 2]])
-
-(defn slope-indices [input slope-rules]
-  (map
-   (fn [[right down]]
-     (toboggan-indices input (int right) (int down)))
-   slope-rules))
-
 (defn trees-for-slope [input slope-rule]
   (let [[right down] slope-rule
-        indices (toboggan-indices input right down)]
+        indices (slope-indices input right down)]
     (count
      (filter
       #(= % \#)
       (map
-       #(nth (nth input (first %)) (last %))
+       (fn [[y x]] (nth (nth input y) x))
        indices)))))
 
 (defn part-1 [input]
