@@ -23,6 +23,4 @@
   (trees-for-slope input (second slope-rules)))
 
 (defn part-2 [input]
-  (apply * (map
-   #(trees-for-slope input %)
-   slope-rules)))
+  (apply * (map #(trees-for-slope input %) slope-rules)))
