@@ -7,7 +7,7 @@
         col-count (count (first input))]
     (map
      (fn [y x] [y (mod (* x right) col-count)])
-     (take-nth down (range row-count))
+     (range 0 row-count down)
      (range))))
 
 (defn trees-for-slope [input slope-rule]
