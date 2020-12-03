@@ -13,12 +13,11 @@
 (defn trees-for-slope [input slope-rule]
   (let [[right down] slope-rule
         indices (slope-indices input right down)]
-    (count
-     (filter
-      #(= % \#)
-      (map
-       (fn [[y x]] (nth (nth input y) x))
-       indices)))))
+    (->>
+     indices
+     (map (fn [[y x]] (nth (nth input y) x)))
+     (filter #(= % \#))
+     (count))))
 
 (defn part-1 [input]
   (trees-for-slope input (second slope-rules)))
