@@ -13,45 +13,29 @@
 (defn value-for [key input]
   (last (re-find (re-pattern (str key ":([\\S]+)\\s*")) input)))
 
+(defn in-range [value from to]
+  (and
+   (>= value from)
+   (<= value to)))
+
 (defn valid-byr? [byr]
-  (when (re-matches #"\d+" byr)
-    (let [year (Integer/parseInt byr)]
-      (and
-       (>= year 1920)
-       (<= year 2002)))))
+  (in-range (Integer/parseInt byr) 1920 2002))
 
 (defn valid-iyr? [iyr]
-    (when (re-matches #"\d+" iyr)
-      (let [year (Integer/parseInt iyr)]
-        (and
-         (>= year 2010)
-         (<= year 2020)))))
+  (in-range (Integer/parseInt iyr) 2010 2020))
 
 (defn valid-eyr? [eyr]
-  (when (re-matches #"\d+" eyr)
-    (let [year (Integer/parseInt eyr)]
-      (and
-       (>= year 2020)
-       (<= year 2030)))))
+  (in-range (Integer/parseInt eyr) 2020 2030))
 
 (defn valid-hgt? [hgt]
-  (when
-   (or
-    (re-matches #"\d+cm$" hgt)
-    (re-matches #"\d+in$" hgt))
-    (cond
-      (re-find #"cm$" hgt)
-      (let [cm (Integer/parseInt (re-find #"\d+" hgt))]
-        (and
-         (>= cm 150)
-         (<= cm 193)))
-      (re-find #"in$" hgt)
-      (let [in (Integer/parseInt (re-find #"\d+" hgt))]
-        (and
-         (>= in 59)
-         (<= in 76)))
-      :else nil)))
-  
+  (cond
+    (re-find #"cm$" hgt)
+    (let [cm (Integer/parseInt (re-find #"\d+" hgt))]
+      (in-range cm 150 193))
+    (re-find #"in$" hgt)
+    (let [in (Integer/parseInt (re-find #"\d+" hgt))]
+      (in-range in 59 76))
+    :else nil))  
 
 (defn valid-hcl? [hcl]
   (re-matches #"#[0-9a-f]{6}" hcl))

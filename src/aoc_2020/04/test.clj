@@ -6,8 +6,6 @@
 (def test-input (parser/read-input "src/aoc_2020/04/test-input.txt" "\n\n"))
 (def input (parser/read-input "src/aoc_2020/04/input.txt" "\n\n"))
 
-test-input
-
 (deftest day-04-tests
    (testing "solves part 1 with test input"
      (is (= 2 (s4/part-1 test-input))))
