@@ -1,12 +1,7 @@
 (ns aoc-2020.04.solution)
 
-(def fields ["byr" "iyr" "eyr" "hcl" "ecl" "pid" "hgt"])
-
 (defn key-value-for [key input]
   (rest (re-find (re-pattern (str "(" key "):([\\S]+)\\s*")) input)))
-
-(defn has-required-fields? [line]
-  (every? not-empty (map #(key-value-for % line) fields)))
 
 (defn in-range [value from to]
   (and (>= value from) (<= value to)))
@@ -25,12 +20,14 @@
             (re-find #"in$" %)
             (let [in (Integer/parseInt (re-find #"\d+" %))]
               (in-range in 59 76))
-            :else nil)
-   })
+            :else nil)})
+
+(defn has-required-fields? [line]
+  (every? not-empty (map #(key-value-for % line) (keys validators))))
 
 (defn has-valid-fields? [line]
   (->>
-   fields
+   (keys validators)
    (map #(key-value-for % line))
    (map (fn [[key value]] ((validators key) value)))
    (every? identity)))
