@@ -1,19 +1,15 @@
-(ns aoc-2020.05.solution)
+(ns aoc-2020.05.solution
+  (:require [clojure.string :as str]
+            [clojure.set :as set]))
 
-(defn lower-half [range]
-  (take (/ (count range) 2) range))
-
-(defn upper-half [range]
-  (take-last (/ (count range) 2) range))
-
-(def rules {\F lower-half, \B upper-half, \R upper-half, \L lower-half})
-
-(defn search [steps range]
-  (first (reduce #((rules %2) %1) range steps)))
+(defn binary-str->int [boarding-pass]
+  (Integer/parseInt
+   (str/replace boarding-pass #"B|R|F|L" {"B" "1", "R" "1", "F" "0", "L" "0"})
+   2))
 
 (defn seat-id [boarding-pass]
-  (+ (* 8 (search (take 7 boarding-pass) (range 128)))
-     (search (take-last 3 boarding-pass) (range 8))))
+  (+ (* 8 (binary-str->int (subs boarding-pass 0 7)))
+     (binary-str->int (subs boarding-pass 7))))
 
 (defn part-1 [input]
   (apply max (map seat-id input)))
@@ -21,4 +17,4 @@
 (defn part-2 [input]
   (let [ids-with-gap (sort (map seat-id input))
         all-ids (range (first ids-with-gap) (inc (last ids-with-gap)))]
-    (first (clojure.set/difference (set all-ids) (set ids-with-gap)))))
+    (first (set/difference (set all-ids) (set ids-with-gap)))))
