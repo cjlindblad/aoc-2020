@@ -11,11 +11,10 @@
      (is (= 11 (s6/part-1 test-input))))
   
    (testing "solves part 1"
-     (is (= 6778 (s6/part-1 input)))) ;; 5334 wrong
+     (is (= 6778 (s6/part-1 input))))
   
    (testing "solves part 2 with test input"
      (is (= 6 (s6/part-2 test-input))))
   
    (testing "solves part 2"
-     (is (= 3406 (s6/part-2 input))))
-  )
+     (is (= 3406 (s6/part-2 input)))))
