@@ -10,7 +10,7 @@
    (map count)
    (apply +)))
 
-(defn question-intersection [group]
+(defn intersection-count [group]
   (->>
    (str/split group #"\s")
    (map #(str/split % #""))
@@ -21,6 +21,6 @@
 (defn part-2 [input]
   (->>
    input
-   (map question-intersection)
+   (map intersection-count)
    (map #(reduce + %))
    (apply +)))

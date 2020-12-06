@@ -17,4 +17,5 @@
      (is (= 6 (s6/part-2 test-input))))
   
    (testing "solves part 2"
-     (is (= 3406 (s6/part-2 input)))))
+     (is (= 3406 (s6/part-2 input))))
+  )
