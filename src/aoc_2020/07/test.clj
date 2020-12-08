@@ -11,7 +11,7 @@
      (is (= 4 (s7/part-1 test-input))))
   
    (testing "solves part 1"
-     (is (= 274 (s7/part-1 input)))) ; 584 too high
+     (is (= 274 (s7/part-1 input))))
   
    (testing "solves part 2 with test input"
      (is (= 32 (s7/part-2 test-input))))
