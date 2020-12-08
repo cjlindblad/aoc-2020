@@ -1,10 +1,5 @@
 (ns aoc-2020.08.solution
-  (:require [utils.input-parser :as parser]
-            [clojure.string :as str]
-            [clojure.set :as set]))
-
-(def test-input (parser/read-input "src/aoc_2020/08/test-input.txt" "\n"))
-(def input (parser/read-input "src/aoc_2020/08/input.txt" "\n"))
+  (:require [clojure.string :as str]))
 
 (defn parse-instructions [input]
   (map
@@ -16,50 +11,22 @@
 (defn in? [col e]
   (some #(= e %) col))
 
-(defn interpreter [input]
+(defn interpreter [input swap-index]
   (let [instructions (parse-instructions input)]
     (loop [acc 0
            executed-indices []
            current-index 0]
-      (let [current-instruction (nth instructions current-index)
-            op (:op current-instruction)
-            value (:value current-instruction)]
-        (cond
-          (in? executed-indices current-index)
-          acc
-          (= op "nop")
-          (recur
-           acc
-           (conj executed-indices current-index)
-           (inc current-index))
-          (= op "acc")
-          (recur
-           (+ acc value)
-           (conj executed-indices current-index)
-           (inc current-index))
-          (= op "jmp")
-          (recur
-           acc
-           (conj executed-indices current-index)
-           (+ current-index value))
-          )))))
-
-(interpreter input)
-
-(defn interpreter-2 [input]
-  (let [instructions (parse-instructions input)]
-    (loop [acc 0
-           executed-indices []
-           current-index 0]
-      (let [current-instruction (nth instructions current-index)
+      (let [current-instruction (nth instructions current-index -1)
             op (:op current-instruction)
             value (:value current-instruction)]
         (cond
           (= (count instructions) current-index)
           {:correct true :acc acc}
-          (in? executed-indices current-index)
-          {:correct false}
-          (= op "nop")
+          (or (> current-index (count instructions))
+              (in? executed-indices current-index))
+          {:corrent false :acc acc}
+          (or (= op "nop")
+              (and (= op "jmp") (= current-index swap-index)))
           (recur
            acc
            (conj executed-indices current-index)
@@ -69,13 +36,21 @@
            (+ acc value)
            (conj executed-indices current-index)
            (inc current-index))
-          (= op "jmp")
+          (or (= op "jmp")
+              (and (= op "nop") (= current-index swap-index)))
           (recur
            acc
            (conj executed-indices current-index)
            (+ current-index value))
           )))))
 
-(defn part-2 [input])
+(defn part-1 [input]
+  (:acc (interpreter input -1)))
 
-(part-2 test-input)
+(defn part-2 [input]
+  (loop [i 0]
+    (let [result (interpreter input i)]
+      (cond
+        (= i (count input)) :error
+        (:correct result) (:acc result)
+        :else (recur (inc i))))))
