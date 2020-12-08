@@ -41,8 +41,7 @@
           (recur
            acc
            (conj executed-indices current-index)
-           (+ current-index value))
-          )))))
+           (+ current-index value)))))))
 
 (defn part-1 [input]
   (:acc (interpreter input -1)))
