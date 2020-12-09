@@ -27,11 +27,11 @@
 (defn part-2 [input preamble-length]
   (let [target (part-1 input preamble-length)]
     (loop [sum (first input)
-           sublist (vector (first input))
-           input (rest input)]
+           slice (vector (first input))
+           remaining (rest input)]
       (cond
-        (= sum target) (+ (apply min sublist) (apply max sublist))
-        (> sum target) (recur (- sum (first sublist)) (subvec sublist 1) input)
-        (< sum target) (recur (+ sum (first input)) (conj sublist (first input)) (drop 1 input))))))
+        (= sum target) (+ (apply min slice) (apply max slice))
+        (> sum target) (recur (- sum (first slice)) (subvec slice 1) remaining)
+        (< sum target) (recur (+ sum (first remaining)) (conj slice (first remaining)) (drop 1 remaining))))))
 
   
