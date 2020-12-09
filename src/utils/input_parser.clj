@@ -11,4 +11,4 @@
    (str/split (re-pattern delimiter)))))
 
 (defn read-numbers [path]
-  (map #(Integer/parseInt %) (read-input path)))
+  (map #(Long/valueOf %) (read-input path)))
