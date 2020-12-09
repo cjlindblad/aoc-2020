@@ -24,14 +24,6 @@
         (not-in? sums next-number) next-number
         :else (recur (drop 1 input))))))
 
-(defn permutations [input]
-  (for [n (range (count input))]
-    (take (inc n) input)))
-
-(defn permutation-for-sum [input sum]
-  (let [perms (permutations input)]
-    (first (filter #(= sum (apply +' %)) perms))))
-
 (defn part-2 [input preamble-length]
   (let [target (part-1 input preamble-length)]
     (loop [sum (first input)
