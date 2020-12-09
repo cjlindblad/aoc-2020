@@ -33,12 +33,13 @@
     (first (filter #(= sum (apply +' %)) perms))))
 
 (defn part-2 [input preamble-length]
-  (let [weakness (part-1 input preamble-length)]
-    (loop [input input]
+  (let [target (part-1 input preamble-length)]
+    (loop [sum (first input)
+           sublist (vector (first input))
+           input (rest input)]
       (cond
-        (empty? input) :wat
-        :else (let [perm (permutation-for-sum input weakness)]
-                (cond
-                  (not-empty perm) (+ (apply min perm) (apply max perm))
-                  :else (recur (drop 1 input))))))))
+        (= sum target) (+ (apply min sublist) (apply max sublist))
+        (> sum target) (recur (- sum (first sublist)) (subvec sublist 1) input)
+        (< sum target) (recur (+ sum (first input)) (conj sublist (first input)) (drop 1 input))))))
+
   
