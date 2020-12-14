@@ -13,9 +13,9 @@
    (testing "solves part 1"
      (is (= 2441 (s11/part-1 input))))
   
-;;    (testing "solves part 2 with test input"
-;;      (is (= 0 (s11/part-2 test-input))))
+   (testing "solves part 2 with test input"
+     (is (= 26 (s11/part-2 test-input))))
   
-;;    (testing "solves part 2"
-;;      (is (= 0 (s11/part-2 input))))
+   (testing "solves part 2"
+     (is (= 2190 (s11/part-2 input))))
   )
