@@ -12,10 +12,7 @@
   
    (testing "solves part 1"
      (is (= 14862056079561 (s14/part-1 input))))
-  
-;;    (testing "solves part 2 with test input"
-;;      (is (= 0 (s14/part-2 test-input))))
-  
-;;    (testing "solves part 2"
-;;      (is (= 0 (s14/part-2 input))))
+ 
+   (testing "solves part 2"
+     (is (= 3296185383161 (s14/part-2 input))))
   )
