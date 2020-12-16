@@ -59,7 +59,7 @@
      (:nearby-tickets input))
     ))
 
-(defn get-possible-orders [rules nearby-tickets]
+(defn get-possible-field-names [rules nearby-tickets]
   (map
    (fn [ticket]
      (vec
@@ -73,17 +73,22 @@
        ticket)))
    nearby-tickets))
 
+(defn possible-field-names-by-index [possible-field-names indices]
+  (for [x (range indices)]
+    {:idx
+     x
+     :set
+     (apply set/intersection
+            (map
+             (fn [order] (set (nth order x)))
+             possible-field-names))}))
+
 (defn find-field-order [rules nearby-tickets]
-  (let [possible-orders (get-possible-orders rules nearby-tickets)
-        value-count (count (first nearby-tickets))
+  (let [possible-field-names (get-possible-field-names rules nearby-tickets)
+        indices (count (first nearby-tickets))
         sorted-order-set (sort-by
                           #(count (:set %))
-                          (for [x (range value-count)]
-                            {:idx x
-                             :set (apply set/intersection
-                                         (map
-                                          (fn [order] (set (nth order x)))
-                                          possible-orders))}))]
+                          (possible-field-names-by-index possible-field-names indices))]
     (map-indexed
      (fn [idx order-set]
        (if (= idx 0) {:idx 0 :set (str/join (:set order-set))}
