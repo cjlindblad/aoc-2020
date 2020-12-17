@@ -19,11 +19,6 @@
   (let [start (- (quot count 2))]
     (range start (+ start count))))
 
-(defn coord-ranges [coords]
-  [(coord-range (count (keys coords)))
-   (coord-range (count (keys (coords 0))))
-   (coord-range (count (keys (get-in coords [0 0]))))])
-
 (defn expanded-coord-range [count]
   (coord-range (+ count 2)))
 
