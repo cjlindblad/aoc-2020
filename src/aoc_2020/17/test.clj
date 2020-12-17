@@ -13,9 +13,9 @@
   (testing "solves part 1"
     (is (= 384 (s17/part-1 input))))
   
-;;   (testing "solves part 2 with test input"
-;;     (is (= 0 (s17/part-2 test-input))))
+  (testing "solves part 2 with test input"
+    (is (= 848 (s17/part-2 test-input))))
 
-;;   (testing "solves part 2"
-;;     (is (= 0 (s17/part-2 input))))
+  (testing "solves part 2"
+    (is (= 2012 (s17/part-2 input))))
 )
